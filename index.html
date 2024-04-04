@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f1f1;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+        input[type="number"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Mortgage Calculator</h2>
+    <form id="mortgageForm">
+        <label for="loanAmount">Loan Amount ($):</label>
+        <input type="number" id="loanAmount" name="loanAmount" required><br>
+        <label for="interestRate">Annual Interest Rate (%):</label>
+        <input type="number" id="interestRate" name="interestRate" step="0.01" required><br>
+        <label for="loanTerm">Loan Term (Years):</label>
+        <input type="number" id="loanTerm" name="loanTerm" required><br>
+        <input type="submit" value="Calculate">
+    </form>
+    <div id="result"></div>
+</div>
+
+<script>
+    document.getElementById('mortgageForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var loanAmount = parseFloat(document.getElementById('loanAmount').value);
+        var interestRate = parseFloat(document.getElementById('interestRate').value) / 100 / 12;
+        var loanTerm = parseFloat(document.getElementById('loanTerm').value) * 12;
+
+        var monthlyPayment = (loanAmount * interestRate) / (1 - Math.pow(1 + interestRate, -loanTerm));
+        document.getElementById('result').innerHTML = 'Monthly Payment: $' + monthlyPayment.toFixed(2);
+    });
+</script>
+
+</body>
+</html>
+
